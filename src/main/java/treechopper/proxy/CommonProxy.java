@@ -3,6 +3,7 @@ package treechopper.proxy;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemAxe;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -37,10 +38,6 @@ public class CommonProxy {
 
   @SubscribeEvent
   public void InteractWithTree(PlayerInteractEvent interactEvent) {
-
-    if (!ConfigurationHandler.modActivation) {
-      return;
-    }
 
     if (interactEvent.getSide().isClient() && m_PlayerPrintNames.containsKey(interactEvent.getEntityPlayer().getPersistentID()) && m_PlayerPrintNames.get(interactEvent.getEntityPlayer().getPersistentID())) {
       interactEvent.getEntityPlayer().sendMessage(new TextComponentTranslation(I18n.format("proxy.printBlock") + " " + interactEvent.getWorld().getBlockState(interactEvent.getPos()).getBlock().getUnlocalizedName()));
@@ -114,9 +111,9 @@ public class CommonProxy {
       if (blockPos.equals(breakEvent.getPos())) {
         treeHandler.DestroyTree(breakEvent.getWorld(), breakEvent.getPlayer());
 
-        if (!breakEvent.getPlayer().isCreative() && breakEvent.getPlayer().getHeldItemMainhand().isItemStackDamageable()) {
+        if (!breakEvent.getPlayer().isCreative() && breakEvent.getPlayer().getHeldItemMainhand().isItemStackDamageable() && ConfigurationHandler.durabilityLossFactor != 0) {
 
-          int axeDurability = breakEvent.getPlayer().getHeldItemMainhand().getItemDamage() + (int) (m_PlayerData.get(breakEvent.getPlayer().getPersistentID()).m_LogCount * 1.5);
+          int axeDurability = breakEvent.getPlayer().getHeldItemMainhand().getItemDamage() + (int) (m_PlayerData.get(breakEvent.getPlayer().getPersistentID()).m_LogCount * 1.5 * ConfigurationHandler.durabilityLossFactor);
 
           breakEvent.getPlayer().getHeldItemMainhand().setItemDamage(axeDurability);
         }
@@ -143,19 +140,16 @@ public class CommonProxy {
       return false;
     }
 
-    if (ConfigurationHandler.axeTypes.contains(entityPlayer.getHeldItemMainhand().getItem().getUnlocalizedName())) {
+    Item itemHand = entityPlayer.getHeldItemMainhand().getItem();
+
+    if (ConfigurationHandler.axeTypes.contains(itemHand.getUnlocalizedName())) {
       return true;
     }
 
-    boolean test;
-
-    try {
-      ItemAxe tmp = (ItemAxe) entityPlayer.getHeldItemMainhand().getItem();
-      test = true;
-    } catch (Exception e) {
-      test = false;
+    if (itemHand instanceof ItemAxe) {
+      return true;
     }
 
-    return test;
+    return false;
   }
 }

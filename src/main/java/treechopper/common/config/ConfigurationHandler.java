@@ -17,8 +17,7 @@ public class ConfigurationHandler {
   public static boolean reverseShift;
   public static boolean disableShift;
   public static boolean plantSapling;
-
-  public static boolean modActivation;
+  public static float durabilityLossFactor;
 
   public static List<String> axeTypes = new ArrayList<>();
   public static List<String> blockWhiteList = new ArrayList<>();
@@ -36,7 +35,8 @@ public class ConfigurationHandler {
       decayLeaves = config.getBoolean("Decay leaves", "Settings", true, "Cut down whole tree - wooden blocks and leaves");
       reverseShift = config.getBoolean("Reverse shift", "Settings", false, "Reverse shift function - Mod works with shift pressing");
       disableShift = config.getBoolean("Disable shift", "Settings", false, "Disable shift function - Always chop trees regardless of shift pressing");
-      plantSapling = config.getBoolean("Plant sapling", "Settings", false, "Automatic sapling plant on tree chop");
+      plantSapling = config.getBoolean("Plant sapling", "Settings", true, "Automatic sapling plant on tree chop");
+      durabilityLossFactor = config.getFloat("Durability loss factor", "Settings", 2.0f, 0.0f, Float.MAX_VALUE, "Multiplier for durability lost when chopping a tree (0 means no durability is lost)");
 
       axeTypes = ImmutableList.copyOf(config.getStringList("Whitelisted items", "Data", new String[]{
               "item.hatchetWood",
@@ -156,6 +156,19 @@ public class ConfigurationHandler {
               "item.steeleafAxe",
               "item.minotaurAxe",
               "item.knightlyAxe",
+
+              "gravisuite.advancedChainsaw", // gravisuite
+              "item.skyroot_axe", // aether_legacy
+              "item.holystone_axe", // aether_legacy
+              "item.zanite_axe", // aether_legacy
+              "item.gravitite_axe", // aether_legacy
+              "item.valkyrie_axe", // aether_legacy
+              "item.phoenix_axe", // lost_aether
+              "item.steel_axe", // galacticraft
+              "item.desh_axe", // galacticraft
+              "item.titanium_axe", // galacticraft
+              "item.immersiveengineering.axe_steel", // immersiveengineering
+              "item.animalium.bear_claw_paxel", // animalium
       }, "Put here allowed items(axes), "));
 
       blockWhiteList = ImmutableList.copyOf(config.getStringList("Whitelisted blocks", "Data", new String[]{
@@ -251,7 +264,7 @@ public class ConfigurationHandler {
 
   public static void setPlantSap(boolean plantSap) {
     ConfigurationHandler.plantSapling = plantSap;
-    config.get("Settings", "Plant sapling", false, "Automatic sapling plant on tree chop").set(plantSap);
+    config.get("Settings", "Plant sapling", true, "Automatic sapling plant on tree chop").set(plantSap);
 
     config.save();
   }
@@ -273,6 +286,13 @@ public class ConfigurationHandler {
   public static void setDecayLea(boolean decayLea) {
     ConfigurationHandler.decayLeaves = decayLea;
     config.get("Settings", "Decay leaves", true, "Cut down whole tree - wooden blocks and leaves").set(decayLea);
+
+    config.save();
+  }
+
+  public static void setDurabilityLossFactor(float factor) {
+    ConfigurationHandler.durabilityLossFactor = factor;
+    config.get("Settings", "Durability loss factor", 2.0f, "Multiplier for durability lost when chopping a tree").set(factor);
 
     config.save();
   }

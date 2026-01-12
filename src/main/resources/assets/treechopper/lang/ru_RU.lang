@@ -1,5 +1,4 @@
-#Перевел Mr_Krab для проекта mc.beandex.ru
-proxy.printBlock=Юлок:
+proxy.printBlock=Блок:
 proxy.printMainHand=Главный предмет в руке:
 
 command.errorMessage=Используйте "/tch help" для справки
