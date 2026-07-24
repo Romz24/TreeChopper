@@ -1,5 +1,7 @@
 proxy.printBlock=Block:
 proxy.printMainHand=Main hand item:
+proxy.notEnoughDurability=This tree is too big - your tool is missing %s durability
+proxy.notEnoughEnergy=This tree is too big - your tool is missing %s EU
 
 command.errorMessage=Type "/tch help" for help
 command.decayLeavesSwitch=Decay leaves has been switched

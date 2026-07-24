@@ -1,5 +1,7 @@
 proxy.printBlock=Блок:
 proxy.printMainHand=Главный предмет в руке:
+proxy.notEnoughDurability=Это дерево слишком большое - не хватает %s прочности инструмента
+proxy.notEnoughEnergy=Это дерево слишком большое - не хватает %s EU заряда инструмента
 
 command.errorMessage=Используйте "/tch help" для справки
 command.decayLeavesSwitch=Опадение листвы переключено

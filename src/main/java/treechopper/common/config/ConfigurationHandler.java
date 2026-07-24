@@ -18,6 +18,7 @@ public class ConfigurationHandler {
   public static boolean disableShift;
   public static boolean plantSapling;
   public static float durabilityLossFactor;
+  public static float ic2EnergyPerLog;
 
   public static List<String> axeTypes = new ArrayList<>();
   public static List<String> blockWhiteList = new ArrayList<>();
@@ -36,7 +37,8 @@ public class ConfigurationHandler {
       reverseShift = config.getBoolean("Reverse shift", "Settings", false, "Reverse shift function - Mod works with shift pressing");
       disableShift = config.getBoolean("Disable shift", "Settings", false, "Disable shift function - Always chop trees regardless of shift pressing");
       plantSapling = config.getBoolean("Plant sapling", "Settings", true, "Automatic sapling plant on tree chop");
-      durabilityLossFactor = config.getFloat("Durability loss factor", "Settings", 3.0f, 0.0f, Float.MAX_VALUE, "Multiplier for durability lost when chopping a tree (0 means no durability is lost)");
+      durabilityLossFactor = config.getFloat("Durability loss factor", "Settings", 2.0f, 0.0f, Float.MAX_VALUE, "Multiplier for durability lost when chopping a tree (0 means no durability is lost)");
+      ic2EnergyPerLog = config.getFloat("IC2 energy per log", "Settings", 200.0f, 0.0f, Float.MAX_VALUE, "IC2 energy (EU) drained per log when chopping a tree with an IC2 electric tool (0 disables it, ignored if IC2 isn't installed)");
 
       axeTypes = ImmutableList.copyOf(config.getStringList("Whitelisted items", "Data", new String[]{
               "item.hatchetWood",
@@ -286,13 +288,6 @@ public class ConfigurationHandler {
   public static void setDecayLea(boolean decayLea) {
     ConfigurationHandler.decayLeaves = decayLea;
     config.get("Settings", "Decay leaves", true, "Cut down whole tree - wooden blocks and leaves").set(decayLea);
-
-    config.save();
-  }
-
-  public static void setDurabilityLossFactor(float factor) {
-    ConfigurationHandler.durabilityLossFactor = factor;
-    config.get("Settings", "Durability loss factor", 3.0f, "Multiplier for durability lost when chopping a tree").set(factor);
 
     config.save();
   }

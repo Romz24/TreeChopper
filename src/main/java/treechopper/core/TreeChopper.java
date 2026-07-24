@@ -27,12 +27,12 @@ public class TreeChopper {
 
   public static final String MOD_ID = "treechopper";
   public static final String MOD_NAME = "Tree Chopper";
-  public static final String MOD_VERSION = "1.2.6";
+  public static final String MOD_VERSION = "1.3.0";
   public static final String GUI_FACTORY = "treechopper.client.gui.GuiTCHFactory";
   public static final String MOD_DEPENDENCIES = "required-after:forge@[14.23.0.2486,)";
   public static SimpleNetworkWrapper m_Network;
 
-  @SidedProxy(serverSide = "treechopper.proxy.ServerProxy", clientSide = "treechopper.proxy.CommonProxy")
+  @SidedProxy(serverSide = "treechopper.proxy.CommonProxy", clientSide = "treechopper.proxy.CommonProxy")
   private static CommonProxy commonProxy;
 
   @Mod.EventHandler
