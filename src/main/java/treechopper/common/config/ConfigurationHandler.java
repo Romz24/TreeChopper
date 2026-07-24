@@ -36,7 +36,7 @@ public class ConfigurationHandler {
       reverseShift = config.getBoolean("Reverse shift", "Settings", false, "Reverse shift function - Mod works with shift pressing");
       disableShift = config.getBoolean("Disable shift", "Settings", false, "Disable shift function - Always chop trees regardless of shift pressing");
       plantSapling = config.getBoolean("Plant sapling", "Settings", true, "Automatic sapling plant on tree chop");
-      durabilityLossFactor = config.getFloat("Durability loss factor", "Settings", 2.0f, 0.0f, Float.MAX_VALUE, "Multiplier for durability lost when chopping a tree (0 means no durability is lost)");
+      durabilityLossFactor = config.getFloat("Durability loss factor", "Settings", 3.0f, 0.0f, Float.MAX_VALUE, "Multiplier for durability lost when chopping a tree (0 means no durability is lost)");
 
       axeTypes = ImmutableList.copyOf(config.getStringList("Whitelisted items", "Data", new String[]{
               "item.hatchetWood",
@@ -292,7 +292,7 @@ public class ConfigurationHandler {
 
   public static void setDurabilityLossFactor(float factor) {
     ConfigurationHandler.durabilityLossFactor = factor;
-    config.get("Settings", "Durability loss factor", 2.0f, "Multiplier for durability lost when chopping a tree").set(factor);
+    config.get("Settings", "Durability loss factor", 3.0f, "Multiplier for durability lost when chopping a tree").set(factor);
 
     config.save();
   }

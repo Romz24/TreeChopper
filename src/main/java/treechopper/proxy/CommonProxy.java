@@ -73,7 +73,7 @@ public class CommonProxy {
             /*System.out.println("Max damage: " + interactEvent.getEntityPlayer().getHeldItemMainhand().getMaxDamage());
             System.out.println("Item damage: " + interactEvent.getEntityPlayer().getHeldItemMainhand().getItemDamage());*/
 
-      if (interactEvent.getEntityPlayer().getHeldItemMainhand().isItemStackDamageable() && axeDurability < logCount) {
+      if (interactEvent.getEntityPlayer().getHeldItemMainhand().isItemStackDamageable() && axeDurability < logCount * ConfigurationHandler.durabilityLossFactor) {
         m_PlayerData.remove(interactEvent.getEntityPlayer().getPersistentID());
         return;
       }
@@ -113,9 +113,9 @@ public class CommonProxy {
 
         if (!breakEvent.getPlayer().isCreative() && breakEvent.getPlayer().getHeldItemMainhand().isItemStackDamageable() && ConfigurationHandler.durabilityLossFactor != 0) {
 
-          int axeDurability = breakEvent.getPlayer().getHeldItemMainhand().getItemDamage() + (int) (m_PlayerData.get(breakEvent.getPlayer().getPersistentID()).m_LogCount * 1.5 * ConfigurationHandler.durabilityLossFactor);
+          int damageAmount = (int) (m_PlayerData.get(breakEvent.getPlayer().getPersistentID()).m_LogCount * ConfigurationHandler.durabilityLossFactor);
 
-          breakEvent.getPlayer().getHeldItemMainhand().setItemDamage(axeDurability);
+          breakEvent.getPlayer().getHeldItemMainhand().damageItem(damageAmount, breakEvent.getPlayer());
         }
       }
     }
