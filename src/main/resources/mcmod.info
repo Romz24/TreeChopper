@@ -6,6 +6,6 @@
   "mcversion": "${version}",
   "logoFile": "assets/treechopper/textures/logo.jpg",
   "url": "https://minecraft.curseforge.com/projects/tree-chopper",
-  "authorList": ["DuchLord"],
-  "credits": "DuchLord"
+  "authorList": ["DuchLord", "Romzes"],
+  "credits": "DuchLord, Romzes"
   }]
